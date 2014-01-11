@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectsController do
-  let(:valid_attributes) { { :title => '"Title',
+  let(:valid_attributes) { { :title => 'Title',
                              :description => 'Description',
                              :status => 'active' } }
   let(:valid_session) { {} }
@@ -28,4 +28,20 @@ describe ProjectsController do
   #  get :show, {:id => project.to_param}, valid_session
   #  assigns(:project).should eq(project)
   #end
+
+  context 'destroy' do
+    it 'should delete a project' do
+      project = double(Project)
+      ProjectsController.should_receive(:set_project)
+      delete :destroy
+      expect(project).to receive(:destroy)
+      
+      #project = Project.create! valid_attributes
+      #debugger
+      #expect {
+      #  delete :destroy, {:id => project.to_param}, valid_session
+      #}.to change(Project, :count).by(-1)
+    end
+  end
 end
+
